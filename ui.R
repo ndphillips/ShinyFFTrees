@@ -1,6 +1,6 @@
 navbarPage("FFTrees",
            
-           tabPanel("Introduction",
+           tabPanel("Welcome",
                    fluidPage(
                      fluidRow(
                        column(7,
@@ -18,7 +18,8 @@ navbarPage("FFTrees",
                              # br(),
                              # p("To learn more about the FFTrees package, read our recently published article in the Journal of Judgment and Decision Making titled 'FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees'. You can read the article by clicking the link below:"),
                              h3("Contact"),
-                             p("If you have comments, suggestions, or bug reports you'd like to share, please post an issue on GitHub and or send us an email by clicking one of the icons below."),
+                             HTML("<p>This site is being maintained by <a href=http://ndphillips.github.io>Nathaniel Phillips</a>, co-creator of the FFTrees package</p>"),
+                             p("If you have comments, suggestions, or bug reports you'd like to share, please post an issue on GitHub and or send me an email by clicking one of the icons below."),
                              
                              HTML("<a href = https://github.com/ndphillips/FFTrees_Shiny><i class='fa fa-github fa-3x'></i></a>  GitHub"),
                 
@@ -199,21 +200,31 @@ navbarPage("FFTrees",
                     ),
 
 
-tabPanel("Paper",
+tabPanel("References",
          fluidPage(
            fluidRow(
-             column(7,
+             column(12,
                     h4("Phillips, Neth, Woike and Gaissmaier (2017)"),
-                    p("The following paper explains the FFTrees pacakge in detail:"),
-                    HTML("<p>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p>")
+                    p("The following paper explains the FFTrees package in detail:"),
+                    HTML("<ul><li><p>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p></li></ul>"),
+                    h4("Additional FFT References"),
+                    HTML("<ul>
+               <li>Dhami, M. K. (2003). Psychological models of professional decision making. Psychological Science, 14(2), 175–180.</li>
+               <li>Dhami, M. K., & Harries, C. (2001). Fast and frugal versus regression models of human judgement. Thinking & Reasoning, 7(1), 5–27.</li>
+               <li>Gigerenzer, G., & Brighton, H. (2009). Homo heuristicus: Why biased minds make better inferences. Topics in Cognitive Science, 1(1), 107–143.</li>
+               <li>Gigerenzer, G., Todd, P. M., & the ABC Research Group. (1999). Simple heuristics that make us smart. New York, NY: Oxford University Press.</li>
+ <li>Jenny, M. A., Pachur, T., Williams, S. L., Becker, E., & Margraf, J. (2013). Simple rules for detecting depression. Journal of Applied Research in Memory and Cognition, 2(3), 149–157.</li>
+ <li>Keller, N., & Katsikopoulos, K. V. (2016). On the role of psychological heuristics in operational research; and a demonstration in military stability operations. European Journal of Operational Research, 249(3), 1063–1073.</li>
+ <li>Luan, S., Schooler, L. J., & Gigerenzer, G. (2011). A signal- detection analysis of fast-and-frugal trees. Psychological Review, 118(2), 316–338</li>
+               <li>Martignon, L., & Hoffrage, U. (2002). Fast, frugal, and fit: Simple heuristics for paired comparison. Theory and Decision, 52(1), 29–71.</li>
+<li>Martignon, L., Vitouch, O., Takezawa, M., & Forster, M. R. (2003). Naive and yet enlightened: From natural fre- quencies to fast and frugal decision trees. In L. M. D. Hardman (Eds.), Thinking: Psychological perspectives on reasoning, judgment, and decision making (pp. 189–211). Chichester, UK: Wiley.</li>  
+<li>Martignon, L., Katsikopoulos, K. V., & Woike, J. K. (2008). Categorization with limited resources: A family of simple heuristics. Journal of Mathematical Psychology, 52(6), 352–361.</li>
+  <li>Woike, J. K., Hoffrage, U., & Martignon, L. (2017). Integrat- ing and testing natural frequencies naïve Bayes, and fast and frugal trees. Decision. (Advance online publication)</li>
+               </ul>")
                     
                     
                     
                     
-                    
-             ),
-             column(5,
-                    img(src="FFTreesPage1")
                     
              ))
          )
