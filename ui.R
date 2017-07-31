@@ -5,23 +5,24 @@ navbarPage("FFTrees",
                      fluidRow(
                        column(7,
                              h3("Welcome to Shiny FFTrees!"),
-                             p("This is a prototype app that allows you to create fast-and-frugal (FFT) decision trees using the FFTrees R package wrapped in an R Shiny application."),
-                             p("The app is a companion to the following article published in the Journal of Judgment and Decision Making:"),
-                             a("FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees.", href = "'http://journal.sjdm.org/17/17217/jdm17217.pdf"),
+                             p("A fast-and-frugal tree (FFT) is an extremely simple decision tree with exactly two branches under each node, where one (or both) branches is an exit branch (Martignon et al., 2008)"),
+                             p("Shiny FFTrees is allows you to create FFTs in a web-browser using the FFTrees R package.
+                               The app is a companion to the following article published in the Journal of Judgment and Decision Making:"),
+                             HTML("<ul><li>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></li></ul>"),
                              
                              h3("How to use this site"),
                              p("You can create FFTs by navigate this site using the tabs on the top of the page in order:"),
-                             HTML("<ol><li>Data: Select a Data set (or upload your own dataset)</li><li>Create FFTs: Create fast-and-frugal trees, either with a built-in algorithm, or by hand.</li><li>Visualize: Visualize the FFTs you created, along with their accuracy statistics</li></ol>"),
+                             HTML("<ol><li>Data: Select a Data set (or upload your own dataset)</li><li>Create FFTs: Create fast-and-frugal trees, either with a built-in algorithm, or by hand.</li><li>Visualize: Visualize FFTs along with accuracy statistics</li></ol>"),
                              # h3("Read the paper!"),
                              # HTML("<a href='http://journal.sjdm.org/17/17217/jdm17217.pdf'><img border='0' alt='Journal of Judgment and Decision Making' src='FFTManuscriptSS.png' width='400' ></a>"),
                              # br(),
                              # p("To learn more about the FFTrees package, read our recently published article in the Journal of Judgment and Decision Making titled 'FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees'. You can read the article by clicking the link below:"),
-                             h3("This site is in beta"),
-                             p("This site is very much in the early stages of development. So there are likely many bugs and areas for improvement. 
-                               If you have comments or suggestions you'd like to share, please post an issue on GitHub and or send us an email"),
-                             HTML("<ul><li><a href ='https://github.com/ndphillips/FFTrees_Shiny'>GitHub Link for the FFTrees Shiny App</a></li>
-                                       <li>Email Nathaniel at <a href = 'mailto:Nathaniel.D.Phillips.is@gmail.com?Subject=FFTrees%20Shiny'>Nathaniel.D.Phillips.is@gmail.com</a></li>
-                                  </ul>")
+                             h3("Contact"),
+                             p("If you have comments, suggestions, or bug reports you'd like to share, please post an issue on GitHub and or send us an email by clicking one of the icons below."),
+                             
+                             HTML("<a href = https://github.com/ndphillips/FFTrees_Shiny><i class='fa fa-github fa-3x'></i></a>  GitHub"),
+                
+                             HTML("<a href =mailto:Nathaniel.D.Phillips.is@gmail.com?Subject=FFTrees%20Shiny><i class='fa fa-envelope-o fa-3x'></i></a>  E-Mail")
                              
                           
                              ),
@@ -191,9 +192,9 @@ navbarPage("FFTrees",
                     br(),
                     hr(),
                       # column(12, align = 'center', uiOutput("FFTPlot.ui")),
-                    div(style="display: inline-block;vertical-align:top; width: 30%;",sliderInput("width", "Width", min = 0, max = 2, value = 1, step = .1, width = "100%")),
-                    div(style="display: inline-block;vertical-align:top; width: 30%;",sliderInput("height", "Height", min = 0, max = 2, value = 1, step  = .1, width = "100%")),
-                    div(style="display: inline-block;vertical-align:top; width: 30%;",sliderInput("res", "Magnification", min = 0, max = 2, value = 1, step = .1, width = "100%"))
+                    div(style="display: inline-block;vertical-align:top; width: 30%;",sliderInput("width", "Width", min = .1, max = 2, value = 1, step = .1, width = "100%")),
+                    div(style="display: inline-block;vertical-align:top; width: 30%;",sliderInput("height", "Height", min = .1, max = 2, value = 1, step  = .1, width = "100%")),
+                    div(style="display: inline-block;vertical-align:top; width: 30%;",sliderInput("res", "Magnification", min = .1, max = 2, value = 1, step = .1, width = "100%"))
                     )
                     ),
 
@@ -202,10 +203,9 @@ tabPanel("Paper",
          fluidPage(
            fluidRow(
              column(7,
-                    h4("Phillips, Neth, Woike and Gaissmaier (2017)
-                       Judgment and Decision Making"),
-                    p("FFTrees is described in much more detail in our recently published paper..."),
-                    p("Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368.")
+                    h4("Phillips, Neth, Woike and Gaissmaier (2017)"),
+                    p("The following paper explains the FFTrees pacakge in detail:"),
+                    HTML("<p>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p>")
                     
                     
                     
@@ -224,7 +224,8 @@ tabPanel("Learn more",
                        choices = c("History of FFTs" = "history", 
                                    "Accuracy Statistics" = "accuracy",
                                    "Tree construction algorithms" = "algorithms",
-                                   "Application Code" = "code")),
+                                   "Application Code" = "code",
+                                   "References" = "references")),
       
            uiOutput("learndisplay")
          )

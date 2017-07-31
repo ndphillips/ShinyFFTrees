@@ -13,19 +13,19 @@ shinyServer(function(input, output, session) {
       "install.packages('FFTrees')\n",
       "library('FFTrees')\n",
       "\n",
-      "# FFTrees Loading Message...\n",
       "\n",
-      "    O      \n",
-      "   / \\     \n",
-      "  F   O  \n",
-      "     / \\   \n",
-      "    F   T  \n",
+      "      O      \n",
+      "     / \\     \n",
+      "    F   O  \n",
+      "       / \\   \n",
+      "      F   T  \n",
       "\n",
-      "# FFTrees v1.3.3\n",
       "\n",
-      "# Keeping it fast and frugal since 2017\n",
-      "# FFTrees.guide() opens the package guide\n",
-      "# Citation info at citation('FFTrees')")
+      "# FFTrees v1.3.3\n")
+      # "\n",
+      # "# Keeping it fast and frugal since 2017\n",
+      # "# FFTrees.guide() opens the package guide\n",
+      # "# Citation info at citation('FFTrees')")
     
   })
   
@@ -79,13 +79,22 @@ shinyServer(function(input, output, session) {
     
     if(is.null(input$dataset)) {return(NULL)} else {
       
+      possible.cues <- names(current.data())[sapply(1:ncol(current.data()), FUN = function(x) {
+        
+        setequal(c(0, 1), unique(current.data()[,x]))
+        
+      })]
+      
+      # Move "diagnosis" or "criterion" to the top
+      
+      ord <- rep(0, length(possible.cues))
+      ord[possible.cues %in% c("diagnosis", "criterion")] <- 1
+      
+      possible.cues <- possible.cues[order(ord, decreasing = TRUE)]
+      
       selectInput("criterion", 
                   "Which binary variable is the criterion?", 
-                  as.list(names(current.data())[sapply(1:ncol(current.data()), FUN = function(x) {
-                    
-                    setequal(c(0, 1), unique(current.data()[,x]))
-                    
-                  })]))
+                  as.list(possible.cues))
     }
   })
   
@@ -267,9 +276,8 @@ shinyServer(function(input, output, session) {
           
           h3("Create an FFT"),
           p("On the left panel, select an FFT construction algorithm and parameters."),
-          p("When you are ready, click Create! to create FFTs"),
-          p("For details about the FFT creation parameters, click the 'Glossary' Tab")
-          
+          p("When you are ready, click Create! to create FFTs")
+
         )
         
         
@@ -615,8 +623,7 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
         
         list(
           h3("Waiting for an FFT..."),
-          p("It looks like you haven't created an FFT yet :( "),
-         p("Once you create an FFT in the 'Create FFTs' tab, you can see it here."),
+          p("It looks like you haven't created an FFT in the Create FFTs tab yet..."),
          img(src = "https://cdn-enterprise.discourse.org/imgur/uploads/default/original/3X/c/4/c41094f8f00d51dce9e00247ed60ae1913c180e0.png", 
              align = 'left', width = "50%")
          
@@ -796,8 +803,8 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
             of cases. For this reason it is computationally much more demanding than the other three algorithms."),
           h4("References"),
           p("Martignon, L., Katsikopoulos, K. V., & Woike, J. K. (2008). Categorization with limited resources: A family of simple heuristics. Journal of Mathematical Psychology, 52(6), 352–361."),
-          p("Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368.")
-      ))
+          HTML("<p>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p>")
+        ))
       
     }
     
@@ -820,8 +827,8 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
         
         list(
           h3("References"),
-          p("This application was written in R Shiny (Shiny Link)"),
-          HTML("<p>Source code is available at LINK</p>")
+          p("The following are a list of papers relevant to fast-and-frugal trees."),
+          HTML("<ul><li>Source code is available at LINK</li></ul>")
         )
       )
       
