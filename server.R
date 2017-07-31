@@ -1,6 +1,13 @@
 library(FFTrees)
+library(shinydashboard)
 
 shinyServer(function(input, output, session) {
+  
+  
+  observeEvent(input$link_to_tabpanel_Data, {
+    newvalue <- "Data"
+    updateTabsetPanel(session, "panels", newvalue)
+  })
   
   # Define FFTrees object
   
@@ -85,19 +92,19 @@ shinyServer(function(input, output, session) {
     "install.packages('FFTrees')\n",
     "library('FFTrees')\n",
     "\n",
-    "FFTrees Loading Message...\n",
+    "# FFTrees Loading Message...\n",
     "\n",
-    "   O      \n",
-    "  / \\     \n",
-    " F   O  \n",
-    "    / \\   \n",
-    "   F   T  \n",
+    "    O      \n",
+    "   / \\     \n",
+    "  F   O  \n",
+    "     / \\   \n",
+    "    F   T  \n",
     "\n",
-    "FFTrees v1.3.3\n",
+    "# FFTrees v1.3.3\n",
     "\n",
-    "Keeping it fast and frugal since 2017\n",
-    "FFTrees.guide() opens the package guide\n",
-    "Citation info at citation('FFTrees')")
+    "# Keeping it fast and frugal since 2017\n",
+    "# FFTrees.guide() opens the package guide\n",
+    "# Citation info at citation('FFTrees')")
     
   })
   

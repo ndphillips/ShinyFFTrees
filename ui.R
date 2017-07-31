@@ -5,20 +5,23 @@ navbarPage("FFTrees",
                      fluidRow(
                        column(7,
                              h3("Welcome to Shiny FFTrees!"),
-                             p("This is a prototype app that allows you to create fast-and-frugal (FFT) decision trees using the FFTrees R package in a web-browser."),
-                             h3("How to use this app"),
-                             p("Here are are three basic steps for using this site to create and visualise FFTs:"),
-                             HTML("<ol><li>Select a Data set in the Data tab</li><li>Create FFTs in the Create tab</li><li>Visualize the FFTs in the Visualize tab</li></ol>"),
-                             h3("Read the article"),
-                             img("www/FFTManuscriptSS.png"),
-                             p("An introduction to the FFTrees package is published in the Journal of Judgment and Decision Making at the following link:"),
-                             a("http://journal.sjdm.org/17/17217/jdm17217.pdf", href = "http://journal.sjdm.org/17/17217/jdm17217.pdf"),
+                             p("This is a prototype app that allows you to create fast-and-frugal (FFT) decision trees using the FFTrees R package wrapped in an R Shiny application."),
+                             h3("How to use this site"),
+                             p("You can create FFTs by navigate this site using the tabs on the top of the page in order:"),
+                             HTML("<ol><li>Data: Select a Data set (or upload your own dataset)</li><li>Create FFTs: Create fast-and-frugal trees, either with a built-in algorithm, or by hand.</li><li>Visualize: Visualize the FFTs you created, along with their accuracy statistics</li></ol>"),
+                             h3("Read the paper!"),
+                             # HTML("<a href='http://journal.sjdm.org/17/17217/jdm17217.pdf'><img border='0' alt='Journal of Judgment and Decision Making' src='FFTManuscriptSS.png' width='400' ></a>"),
+                             # br(),
+                             p("To learn more about the FFTrees package, read our recently published article in the Journal of Judgment and Decision Making titled 'FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees'. You can read the article by clicking the link below:"),
+                             a("FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees.", href = "'http://journal.sjdm.org/17/17217/jdm17217.pdf"),
+                             h3("This site is in beta"),
+                             p("This site is very much in the early stages of development. So there are likely many bugs and areas for improvement. 
+                               If you have comments or suggestions you'd like to share, please post an issue on GitHub and or send us an email"),
+                             HTML("<ul><li><a href ='https://github.com/ndphillips/FFTrees_Shiny'>GitHub Link for the FFTrees Shiny App</a></li>
+                                       <li>Email Nathaniel at <a href = 'mailto:Nathaniel.D.Phillips.is@gmail.com?Subject=FFTrees%20Shiny'>Nathaniel.D.Phillips.is@gmail.com</a></li>
+                                  </ul>")
                              
-                             h3("This site is in beta!"),
-                             p("This site is very much in the early stages of development. So there are likely many bugs and areas for improvement. If you have comments or suggestions you'd like to share, please contact us!")
-                             
-                             # HTML("<ul><li>More datasets</li><li>Upload your own data</li><li>Tutorial and / or
-                             #      help menus</li><li>Placeholder displays when FFTs haven't been created yet</li></ul>")
+                          
                              ),
                        column(5,
                               br(),
@@ -60,7 +63,7 @@ navbarPage("FFTrees",
                     )
            ),
            tabPanel("2: Create FFTs",
-                    sidebarPanel(
+                    sidebarPanel(width = 4,
                       
                       # selectInput("dataset", "Choose a Dataset",
                       #              choices = c("heartdisease"="heartdisease", 
@@ -72,29 +75,29 @@ navbarPage("FFTrees",
                       # textInput("decision.labels", label = "Decision Labels", value = NULL, placeholder = "False, True"),
                       
                       
-                      h4("Go!"),
-                      div(actionButton("goButton", "Create FFTs!"), style="float:center"),
+                      h4("Click Go! when ready"),
+                      div(actionButton("goButton", "Go!"), style="float:center"),
                       br(),
                       
-                      selectInput("algorithm", "Algorithm",
+                      selectInput("algorithm", "Choose an algorithm",
                                    c("ifan"="ifan",
                                      "dfan" = "dfan",
                                      "max"="max", 
                                      "zigzag"="zigzag")
                       ),
-                      sliderInput("max.levels", "Maximum levels", min = 1, max = 5, step = 1, value = 4),
+                      selectInput("goal", "Goal",
+                                  choices = c("Balanced 'bacc'" = 'bacc',
+                                              "Absolute 'acc'" = 'acc',
+                                              "Weighted 'wacc'" = 'wacc')),
+                      selectInput("goal.chase", "Goal Chase",
+                                  choices = c("Balanced 'bacc'" = 'bacc',
+                                              "Absolute 'acc'" = 'acc',
+                                              "Weighted 'wacc'" = 'wacc')),
+                      sliderInput("max.levels", "Maximum levels", min = 1, max = 6, step = 1, value = 4),
                       numericInput("seed", label = "Randomization Seed", value = 100, min = 1, max = 500, step = 1),
                       sliderInput("train.p", "Training Size", min = .1, max = 1, step = .1, value = .5),
-                      selectInput("goal", "Goal",
-                                  choices = c("Balanced Accuracy 'bacc'" = 'bacc',
-                                              "Absolute Accuracy 'acc'" = 'acc',
-                                              "Cost" = 'cost')
-                      ),
-                      selectInput("goal.chase", "Goal Chase",
-                                  choices = c("Balanced Accuracy 'bacc'" = 'bacc',
-                                              "Absolute Accuracy 'acc'" = 'acc',
-                                              "Cost" = 'cost')
-                      ),
+                      
+                      
                       h4("Create your own tree"),
                       p("You can define your own tree manually below. (It's best to start with an example after already creating an FFT)"),
                       textAreaInput("mytree", "", "", width = "100%", height = "200px",
@@ -105,12 +108,12 @@ navbarPage("FFTrees",
                       h4("Summary"),
                       verbatimTextOutput("printFFTrees"),
                       h4("In words"),
-                      verbatimTextOutput("inwords"),
+                      verbatimTextOutput("inwords")
                       # plotOutput("FFTplot.Simple"),
-                      uiOutput("plotsimple.ui"),
-                      sliderInput("simple.width", label = "width", min = 0, max = 100, value = 50),
-                      sliderInput("simple.height", label = "height", min = 0, max = 100, value = 50)
-                      
+                      # uiOutput("plotsimple.ui"),
+                      # sliderInput("simple.width", label = "width", min = 0, max = 100, value = 50),
+                      # sliderInput("simple.height", label = "height", min = 0, max = 100, value = 50)
+                      # 
                     )
            ),
            tabPanel("3: Visualize",
@@ -199,6 +202,9 @@ navbarPage("FFTrees",
 
                       verbatimTextOutput("code")
                     )
-           )
+           ),
+tabPanel("Learn more",
+         h3("A brief introduction to fast-and-frugal trees"),
+         p("Coming soon..."))
            
            )
