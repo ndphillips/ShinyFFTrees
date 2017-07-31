@@ -62,13 +62,13 @@ shinyServer(function(input, output, session) {
       
       return(selectInput("dataset", 
                          "Choose A Dataset", 
-                         as.list(c("heartdisease", "breastcancer"))))
+                         as.list(c("heartdisease", "breastcancer", "titanic", "mushrooms"))))
       
     } else {
       
       return(selectInput("dataset", 
                          "Choose A Dataset", 
-                         as.list(c("heartdisease", "breastcancer", input$file1$name))))
+                         as.list(c("heartdisease", "breastcancer", "titanic", "mushrooms", input$file1$name))))
       
     }
     
@@ -113,7 +113,7 @@ shinyServer(function(input, output, session) {
   # Define currentdata
   current.data <- reactive({
     
-    if(input$dataset %in% c("heartdisease", "breastcancer")) {
+    if(input$dataset %in% c("heartdisease", "breastcancer", "titanic", "mushrooms")) {
       
       return(get(input$dataset))
       
