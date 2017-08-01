@@ -1,16 +1,14 @@
-navbarPage("FFTrees",
+navbarPage("Shiny FFTrees",
            
            tabPanel("Welcome",
                    fluidPage(
                      fluidRow(
                        column(7,
                              h3("Welcome to Shiny FFTrees!"),
-                             p("Shiny FFTrees is allows you to create fast-and-frugal decision trees (FFTs) in a web-browser using the FFTrees R package.
+                             p("Shiny FFTrees is a Shiny application that allows you to create fast-and-frugal decision trees (FFTs) in a web-browser using the FFTrees R package.
                                The app is a companion to the following article published in the Journal of Judgment and Decision Making:"),
                              HTML("<ul><li>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href =http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></li></ul>"),
-                             h3("What is an FFT?"),
-                             p("A fast-and-frugal tree (FFT) is an extremely simple decision tree with exactly two branches under each node, where one (or both) branches is an exit branch (Martignon et al., 2008)"),
-                             
+                          
                              h3("How to use this site"),
                              p("You can create FFTs by navigate this site using the tabs on the top of the page in order:"),
                              HTML("<ol><li>Data: Select a Data set (or upload your own dataset)</li><li>Create FFTs: Create fast-and-frugal trees, either with a built-in algorithm, or by hand.</li><li>Visualize: Visualize FFTs along with accuracy statistics</li></ol>"),
@@ -34,6 +32,12 @@ navbarPage("FFTrees",
                       verbatimTextOutput("FFT_loading"),
                       br(),
                       br(),
+                      h4("What is an FFT?"),
+                      p("A fast-and-frugal tree (FFT) is an extremely simple decision tree with exactly two branches under each node, where one (or both) branches is an exit branch (Martignon et al., 2008)"),
+                      br(),
+                      br(),
+                      
+                      
                       h4("Fun Fact!"),
                       p("As I can't sleep on planes, the majority of this site was written during a 24h trip from Basel Switzerland to Philadelphia. Lack of sleep should also explain the inevitable bugs...")
                     ))
@@ -208,12 +212,12 @@ navbarPage("FFTrees",
 tabPanel("References",
          fluidPage(
            fluidRow(
-             column(12,
+             column(7,
                     h4("Phillips, Neth, Woike and Gaissmaier (2017)"),
                     HTML("<ul><li><p>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p></li></ul>"),
                     h4("Additional FFT References"),
                     HTML("<ul>
-               <li>Dhami, M. K. (2003). Psychological models of professional decision making. Psychological Science, 14(2), 175–180.</li>
+                <li>Dhami, M. K. (2003). Psychological models of professional decision making. Psychological Science, 14(2), 175–180.</li>
                <li>Dhami, M. K., & Harries, C. (2001). Fast and frugal versus regression models of human judgement. Thinking & Reasoning, 7(1), 5–27.</li>
                <li>Gigerenzer, G., & Brighton, H. (2009). Homo heuristicus: Why biased minds make better inferences. Topics in Cognitive Science, 1(1), 107–143.</li>
                <li>Gigerenzer, G., Todd, P. M., & the ABC Research Group. (1999). Simple heuristics that make us smart. New York, NY: Oxford University Press.</li>
@@ -230,9 +234,11 @@ tabPanel("References",
                     
                     
                     
-             ))
+             ),
+             column(5,
+                    p("")
          )
-),
+))),
 
 tabPanel("Learn more",
            selectInput("whichlearn", "",
