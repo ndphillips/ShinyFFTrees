@@ -223,7 +223,7 @@ shinyServer(function(input, output, session) {
     
     if(is.null(input$mytree) == FALSE & input$mytree != "") {my.tree <- input$mytree} else {my.tree <- NULL}
     
-    withProgress(message = "Growing Trees...", value = 0, {
+    withProgress(message = "Growing Trees....For large datasets, this can take up to a minute", value = 0, {
       
       incProgress(.5)
       
@@ -268,15 +268,45 @@ shinyServer(function(input, output, session) {
     
   output$createProgress <- renderUI({
     
-    if(input$goButton == 0) {
+    if(input$goButton == 0 | input$showinstructions) {
+      
+      output$definition.tbl <- renderTable(
+        
+data.frame("Parameter" = c("Training Split Percentage",
+                           "Construction Algorithm",
+                           "Maximum Levels",
+                           "Sensitivity Weight",
+                           "Goal",
+                           "Goal Chase",
+                           "Randomization Seed"),
+           "Definition" = c("Percentage of the original data used for model training", 
+                            "FFT construction algorithm",
+                            "Maximum number of levels allowed in the FFT",
+                            "Weighting of sensitivity (relative to specificity) when creating FFTs",
+                            "The statistic maximized when selecting a final FFT once several are grown",
+                            "The statistic maximized when ranking cues and calculating cue thresholds",
+                            "An integer specifying a randomization seed"),
+           "Notes" = c("", 
+                       "The dfan algorithm can take a long time, especially for large datasets.", 
+                       "Higher values will lead to longer processing times for the fan algorithms",
+                       "Only used when goal / goal chase = 'wacc",
+                       "dfan and ifan algorithms only",
+                       "dfan and ifan algorithms only",
+                       "Only necessary when trying to replicate a specific training / test data split")
+                           )
+        
+      )
       
       return(
         
         list(
           
-          h3("Create an FFT"),
-          p("On the left panel, select an FFT construction algorithm and parameters."),
-          p("When you are ready, click Create! to create FFTs")
+           h4("Create an FFT"),
+          p("Select an FFT construction algorithm and parameters and click 'Create FFTs!' to create trees"),
+          # p("When you are ready, click Create! to create FFTs"),
+          h4("Parameter definitions"),
+          tableOutput('definition.tbl')
+
 
         )
         
@@ -289,7 +319,7 @@ shinyServer(function(input, output, session) {
   
   output$createHeader <- renderUI({
     
-    if(input$goButton != 0) {
+    if(input$goButton != 0 & input$showinstructions == FALSE) {
       
       return(
         
@@ -308,7 +338,7 @@ shinyServer(function(input, output, session) {
   
   output$summaryHeader <- renderUI({
     
-    if(input$goButton != 0) {
+    if(input$goButton != 0 & input$showinstructions == FALSE) {
       
       return(
         
@@ -330,7 +360,7 @@ shinyServer(function(input, output, session) {
     # checkboxInput('showcode', 
     #               label = "Show R code?")
     
-    if(input$goButton != 0) {
+    if(input$goButton != 0 & input$showinstructions == FALSE) {
 
       return(
 
@@ -350,7 +380,7 @@ shinyServer(function(input, output, session) {
   
   output$inwordsHeader <- renderUI({
     
-    if(input$goButton != 0) {
+    if(input$goButton != 0 & input$showinstructions == FALSE) {
       
       return(
         
@@ -370,7 +400,11 @@ shinyServer(function(input, output, session) {
   
   output$printFFTrees <- renderPrint({
     
+    if(input$goButton != 0 & input$showinstructions == FALSE) {
+    
     print(fft.object())
+      
+    }
     
   })
   
@@ -378,9 +412,13 @@ shinyServer(function(input, output, session) {
   
   output$inwords <- renderText({
     
+    if(input$goButton != 0 & input$showinstructions == FALSE) {
+    
     output <- inwords(fft.object())$v1
     
     output <- paste(output, collapse = "\n")
+    
+    }
     
   })
   
@@ -394,6 +432,10 @@ shinyServer(function(input, output, session) {
       
 "# -------------------------------------------
 # ", input$dataset, ".fft
+#
+#  This code was auto-generated with an experimental feature from 
+#   https://econpsychbasel.shinyapps.io/ShinyFFTrees/ 
+#  It is not guaranteed to be accurate.
 # ---------------------------------------------
 
 # Step 0: Install the FFTrees package
@@ -409,9 +451,13 @@ library(FFTrees)
                   "# Load the data from an external file
                   ",
                   input$dataset, " <- read.table('", input$dataset, "')"), 
-                ""), 
-      
-"set.seed(", input$seed, ") # For training / test replicability
+                ""),
+"
+",
+
+if(input$seed != 0) { 
+   paste0("set.seed(", input$seed, ") # For training / test replicability"
+      )}, "
 
 # Step 2: Create an FFTrees object
 
@@ -444,10 +490,6 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
 #    F   T 
 # FFTrees v1.3.3
 # 
-# Notes: 
-#  This code was auto-generated with an experimental feature from 
-#   https://econpsychbasel.shinyapps.io/FFTrees_Shiny/ 
-#  It is not guaranteed to be accurate.
 ")
   
     output$code.render <- renderText(codetext)
@@ -462,6 +504,7 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
       
   })
 
+  
 }
 
   # ----------------
@@ -815,7 +858,7 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
         list(
           h3("Application Code"),
           p("This application was written in R Shiny (Shiny Link)"),
-          HTML("<p>Source code is available at LINK</p>")
+          HTML("<pSource code is available at <a href=https://github.com/ndphillips/ShinyFFTrees>https://github.com/ndphillips/ShinyFFTrees</a></p>")
         )
       )
       

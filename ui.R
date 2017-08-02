@@ -20,9 +20,9 @@ navbarPage("Shiny FFTrees",
                              HTML("<p>This site is being maintained by <a href=http://ndphillips.github.io>Nathaniel Phillips</a>, co-creator of the FFTrees package.</p>"),
                              p("If you have comments, suggestions, or bug reports you'd like to share, please post an issue on GitHub and or send me an email by clicking one of the icons below."),
                              
-                             HTML("<a href = https://github.com/ndphillips/FFTrees_Shiny><i class='fa fa-github fa-3x'></i></a>  GitHub"),
+                             HTML("<a href = https://github.com/ndphillips/ShinyFFTrees><i class='fa fa-github fa-3x'></i></a>  GitHub"),
                 
-                             HTML("<a href =mailto:Nathaniel.D.Phillips.is@gmail.com?Subject=FFTrees%20Shiny><i class='fa fa-envelope-o fa-3x'></i></a>  E-Mail")
+                             HTML("<a href =mailto:Nathaniel.D.Phillips.is@gmail.com?Subject=ShinyFFTrees><i class='fa fa-envelope-o fa-3x'></i></a>  E-Mail")
                              
                           
                              ),
@@ -80,7 +80,10 @@ navbarPage("Shiny FFTrees",
                     sidebarPanel(width = 4,
                       uiOutput("dataandcriterion"),
                       # h4("Click Create! when ready"),
-                      div(actionButton("goButton", "Create FFTs!"), style="float:center;width:50%"),
+                      div(
+                        actionButton("goButton", "Create FFTs!"),
+                      checkboxInput("showinstructions", label = "Show Definitions"),
+                      style="float:left"),
                       br(),
                       sliderInput("train.p", "Training Split Percentage", min = .1, max = 1, step = .1, value = .5),
                       
@@ -111,6 +114,7 @@ navbarPage("Shiny FFTrees",
                       p("You can define your own tree manually below (it's best to start by copying an existing FFT 'in words')"),
                       textAreaInput("mytree", "", "", width = "100%", height = "200px",
                                     placeholder = "If age > 40, predict TRUE. If eyecolor = {blue,orange}, predict FALSE.")
+                      
                     ),
                     mainPanel(
                       htmlOutput("createProgress"),
