@@ -223,7 +223,18 @@ shinyServer(function(input, output, session) {
     
     if(is.null(input$mytree) == FALSE & input$mytree != "") {my.tree <- input$mytree} else {my.tree <- NULL}
     
-    withProgress(message = "Growing Trees....For large datasets, this can take up to a minute", value = 0, {
+    if(input$algorithm == "dfan") {
+      progress.message <- "Growing FFTs...You are using the dfan algorithm, which is by far the slowest. This could 
+      take a minute or two. If it takes too long, try reducing the maximum number of levels, 
+      or use a different algorithm"
+    }
+    
+    if(input$algorithm != "dfan") {
+      progress.message <- "Growing FFTs...should only take a few seconds unless you 
+      have a particularly large dataset..."
+    }
+    
+    withProgress(message = progress.message, value = 0, {
       
       incProgress(.5)
       
@@ -288,21 +299,24 @@ data.frame("Parameter" = c("Training Split Percentage",
                            "Sensitivity Weight",
                            "Goal",
                            "Goal Chase",
-                           "Randomization Seed"),
+                           "Randomization Seed",
+                           "Competitors"),
            "Definition" = c("Percentage of the original data used for model training", 
                             "FFT construction algorithm",
                             "Maximum number of levels allowed in the FFT",
                             "Weighting of sensitivity (relative to specificity) when creating FFTs",
                             "The statistic maximized when selecting a final FFT once several are grown",
                             "The statistic maximized when ranking cues and calculating cue thresholds",
-                            "An integer specifying a randomization seed"),
+                            "An integer specifying a randomization seed",
+                            "Other algorithms to fit to the data for comparison purposes"),
            "Notes" = c("", 
                        "The dfan algorithm can take a long time, especially for large datasets.", 
-                       "Higher values will lead to longer processing times for the fan algorithms",
-                       "Only used when goal / goal chase = 'wacc",
+                       "Higher values will lead to longer processing times for the ifan and dfan algorithms",
+                       "Only used when goal / goal chase = 'wacc'",
                        "dfan and ifan algorithms only",
                        "dfan and ifan algorithms only",
-                       "Only necessary when trying to replicate a specific training / test data split")
+                       "Only necessary when trying to replicate a specific training / test data split",
+                       "Results will show up in the ROC curve in the Visualize tab.")
                            )
         
       )

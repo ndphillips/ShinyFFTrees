@@ -1,6 +1,6 @@
 navbarPage("Shiny FFTrees",
            
-           tabPanel("Welcome",
+           tabPanel(HTML("Home - <i class='fa fa-home fa-2x'></i>"),
                    fluidPage(
                      fluidRow(
                        column(7,
@@ -48,7 +48,7 @@ navbarPage("Shiny FFTrees",
 # Data Tab
 # --------------
            
-           tabPanel("1: Select Data",
+           tabPanel(HTML("Data - <i class='fa fa-table fa-2x'></i>"),
                     sidebarPanel(
                       uiOutput("dataandcriterion3"),
                       
@@ -76,7 +76,7 @@ navbarPage("Shiny FFTrees",
                       # DT::dataTableOutput('tbl')
                     )
            ),
-           tabPanel("2: Create FFTs",
+           tabPanel(HTML("Create - <i class='fa fa-tree fa-2x'></i>"),
                     sidebarPanel(width = 4,
                       uiOutput("dataandcriterion"),
                       # h4("Click Create! when ready"),
@@ -110,10 +110,10 @@ navbarPage("Shiny FFTrees",
                       numericInput("seed", label = "Randomization Seed", value = 100, min = 0, max = 500, step = 1),
                       checkboxGroupInput("compalgorithms", 
                                          label = "Competitors", 
-                                         choices = c("Logistic Regression (LR)" = "lr",
-                                                     "CART" = "cart",
-                                                     "Random Forests (RF)" = "rf",
-                                                     "Support Vector Machines (SVM)" = "svm"),
+                                         choices = c("LR: Logistic Regression" = "lr",
+                                                     "CART: Non-Frugal decision trees" = "cart",
+                                                     "RF: Random Forests" = "rf",
+                                                     "SVM: Support Vector Machines" = "svm"),
                                          selected = list("lr", "cart", "rf", "svm")),
             
                       h4("Create your own tree"),
@@ -132,7 +132,7 @@ navbarPage("Shiny FFTrees",
                       uiOutput("FFTcode")
                     )
            ),
-           tabPanel("3: Visualize",
+           tabPanel(HTML("Visualize - <i class='fa fa-bar-chart fa-2x'></i>"),
                     sidebarPanel(
                        uiOutput("dataandcriterion2"),
                       
@@ -219,12 +219,12 @@ navbarPage("Shiny FFTrees",
                     ),
 
 
-tabPanel("References",
+tabPanel(HTML("References - <i class='fa fa-book fa-2x'></i>"),
          fluidPage(
            fluidRow(
              column(7,
-                    h4("Phillips, Neth, Woike and Gaissmaier (2017)"),
-                    HTML("<ul><li><p>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p></li></ul>"),
+                    h4("FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees."),
+                    HTML("<ul><li><p>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF Link</a></p></li></ul>"),
                     h4("Additional FFT References"),
                     HTML("<ul>
                 <li>Dhami, M. K. (2003). Psychological models of professional decision making. Psychological Science, 14(2), 175–180.</li>
@@ -250,7 +250,7 @@ tabPanel("References",
          )
 ))),
 
-tabPanel("Learn more",
+tabPanel(HTML("Learn More - <i class='fa fa-university fa-2x'></i>"),
            selectInput("whichlearn", "",
                        choices = c("History of FFTs" = "history", 
                                    "Accuracy Statistics" = "accuracy",

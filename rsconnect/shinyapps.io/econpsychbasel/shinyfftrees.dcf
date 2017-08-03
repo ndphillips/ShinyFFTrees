@@ -3,8 +3,8 @@ title: ShinyFFTrees
 account: econpsychbasel
 server: shinyapps.io
 appId: 201070
-bundleId: 925682
+bundleId: 925696
 url: https://econpsychbasel.shinyapps.io/shinyfftrees/
-when: 1501729227.95916
+when: 1501730174.18185
 asMultiple: FALSE
 asStatic: FALSE
