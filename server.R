@@ -245,10 +245,10 @@ shinyServer(function(input, output, session) {
         
       } else {my.max.levels <- input$max.levels}
       
-      do.lr <- "1" %in% input$compalgorithms
-      do.comp <- "2" %in% input$compalgorithms
-      do.rf <- "3" %in% input$compalgorithms
-      do.svm <- "4" %in% input$compalgorithms
+      do.lr <- "lr" %in% input$compalgorithms
+      do.cart <- "cart" %in% input$compalgorithms
+      do.rf <- "rf" %in% input$compalgorithms
+      do.svm <- "svm" %in% input$compalgorithms
       
       
       object <- FFTrees::FFTrees(formula = my.formula, 
@@ -261,7 +261,7 @@ shinyServer(function(input, output, session) {
                                  sens.w = input$sens.w,
                                  my.tree = my.tree,
                                  main = main,
-                                 do.comp = do.comp,
+                                 do.cart = do.cart,
                                  do.lr = do.lr,
                                  do.svm = do.svm,
                                  do.rf = do.rf,
