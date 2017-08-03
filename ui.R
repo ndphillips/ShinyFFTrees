@@ -11,7 +11,7 @@ navbarPage("Shiny FFTrees",
                           
                              h3("How to use this site"),
                              p("You can create FFTs by navigate this site using the tabs on the top of the page in order:"),
-                             HTML("<ol><li>Data: Select a Data set (or upload your own dataset)</li><li>Create FFTs: Create fast-and-frugal trees, either with a built-in algorithm, or by hand.</li><li>Visualize: Visualize FFTs along with accuracy statistics</li></ol>"),
+                             HTML("<ul class='fa-ul'><li><i class='fa-li fa fa-table'></i> Data: Select a Data set (or upload your own dataset)</li><li><i class='fa-li fa fa-cogs'></i> Create: Create fast-and-frugal trees, either with a built-in algorithm, or by hand.</li><li><i class='fa-li fa fa-tree'></i> Visualize: Visualize FFTs along with accuracy statistics</li></ul>"),
                              # h3("Read the paper!"),
                              # HTML("<a href='http://journal.sjdm.org/17/17217/jdm17217.pdf'><img border='0' alt='Journal of Judgment and Decision Making' src='FFTManuscriptSS.png' width='400' ></a>"),
                              # br(),

@@ -10,15 +10,17 @@ shinyServer(function(input, output, session) {
   output$FFT_loading <- renderText({
     
     output <- paste(
+      "# Install FFTrees in R\n\n",
       "install.packages('FFTrees')\n",
       "library('FFTrees')\n",
+      "FFTrees_guide()\n",
       "\n",
       "\n",
-      "      O      \n",
-      "     / \\     \n",
-      "    F   O  \n",
-      "       / \\   \n",
-      "      F   T  \n",
+      " #     O      \n",
+      " #    / \\     \n",
+      " #   F   O  \n",
+      " #      / \\   \n",
+      " #     F   T  \n",
       "\n",
       "\n",
       "# FFTrees v1.3.3\n")
