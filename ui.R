@@ -7,7 +7,7 @@ navbarPage("Shiny FFTrees",
                              h3("Welcome to Shiny FFTrees!"),
                              p("Shiny FFTrees is a Shiny application that allows you to create fast-and-frugal decision trees (FFTs) in a web-browser using the FFTrees R package.
                                The app is a companion to the following article published in the Journal of Judgment and Decision Making:"),
-                             HTML("<ul><li>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href =http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></li></ul>"),
+                             HTML("<ul><li>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href =http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></li></ul>"),
                           
                              h3("How to use this site"),
                              p("You can create FFTs by navigate this site using the tabs on the top of the page in order:"),
@@ -108,7 +108,12 @@ navbarPage("Shiny FFTrees",
                                               )),
                       
                       numericInput("seed", label = "Randomization Seed", value = 0, min = 0, max = 500, step = 1),
-                      
+                      checkboxGroupInput("compalgorithms", 
+                                         label = "Competitors", 
+                                         choices = c("Logistic Regression (LR)",
+                                                     "CART",
+                                                     "Random Forests (RF)",
+                                                     "Support Vector Machines (SVM)")),
             
                       h4("Create your own tree"),
                       p("You can define your own tree manually below (it's best to start by copying an existing FFT 'in words')"),
@@ -218,7 +223,7 @@ tabPanel("References",
            fluidRow(
              column(7,
                     h4("Phillips, Neth, Woike and Gaissmaier (2017)"),
-                    HTML("<ul><li><p>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p></li></ul>"),
+                    HTML("<ul><li><p>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p></li></ul>"),
                     h4("Additional FFT References"),
                     HTML("<ul>
                 <li>Dhami, M. K. (2003). Psychological models of professional decision making. Psychological Science, 14(2), 175–180.</li>

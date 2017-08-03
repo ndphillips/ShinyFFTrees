@@ -245,6 +245,12 @@ shinyServer(function(input, output, session) {
         
       } else {my.max.levels <- input$max.levels}
       
+      do.lr <- "1" %in% input$compalgorithms
+      do.comp <- "2" %in% input$compalgorithms
+      do.rf <- "3" %in% input$compalgorithms
+      do.svm <- "4" %in% input$compalgorithms
+      
+      
       object <- FFTrees::FFTrees(formula = my.formula, 
                                  data = data, 
                                  max.levels = my.max.levels,
@@ -255,6 +261,10 @@ shinyServer(function(input, output, session) {
                                  sens.w = input$sens.w,
                                  my.tree = my.tree,
                                  main = main,
+                                 do.comp = do.comp,
+                                 do.lr = do.lr,
+                                 do.svm = do.svm,
+                                 do.rf = do.rf,
                                  decision.labels = decision.labels)
       
       incProgress(1)
@@ -846,7 +856,7 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
             of cases. For this reason it is computationally much more demanding than the other three algorithms."),
           h4("References"),
           p("Martignon, L., Katsikopoulos, K. V., & Woike, J. K. (2008). Categorization with limited resources: A family of simple heuristics. Journal of Mathematical Psychology, 52(6), 352–361."),
-          HTML("<p>Phillips, N, D., Neth, Hansjoerg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p>")
+          HTML("<p>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></p>")
         ))
       
     }
