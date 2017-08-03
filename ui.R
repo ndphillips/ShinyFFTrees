@@ -76,7 +76,7 @@ navbarPage("Shiny FFTrees",
                       # DT::dataTableOutput('tbl')
                     )
            ),
-           tabPanel(HTML("Create - <i class='fa fa-tree fa-2x'></i>"),
+           tabPanel(HTML("Create - <i class='fa fa-cogs fa-2x'></i>"),
                     sidebarPanel(width = 4,
                       uiOutput("dataandcriterion"),
                       # h4("Click Create! when ready"),
@@ -132,7 +132,7 @@ navbarPage("Shiny FFTrees",
                       uiOutput("FFTcode")
                     )
            ),
-           tabPanel(HTML("Visualize - <i class='fa fa-bar-chart fa-2x'></i>"),
+           tabPanel(HTML("Visualize - <i class='fa fa-tree fa-2x'></i>"),
                     sidebarPanel(
                        uiOutput("dataandcriterion2"),
                       
@@ -250,7 +250,7 @@ tabPanel(HTML("References - <i class='fa fa-book fa-2x'></i>"),
          )
 ))),
 
-tabPanel(HTML("Learn More - <i class='fa fa-university fa-2x'></i>"),
+tabPanel(HTML("Learn - <i class='fa fa-university fa-2x'></i>"),
            selectInput("whichlearn", "",
                        choices = c("History of FFTs" = "history", 
                                    "Accuracy Statistics" = "accuracy",
