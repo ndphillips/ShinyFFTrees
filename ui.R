@@ -1,17 +1,17 @@
 navbarPage("Shiny FFTrees",
            
-           tabPanel(HTML("Home - <i class='fa fa-home fa-2x'></i>"),
+           tabPanel(HTML("<i class='fa fa-home fa-2x'></i>"),
                    fluidPage(
                      fluidRow(
                        column(7,
                              h3("Welcome to Shiny FFTrees!"),
-                             p("Shiny FFTrees is a Shiny application that allows you to create fast-and-frugal decision trees (FFTs) in a web-browser using the FFTrees R package.
-                               The app is a companion to the following article published in the Journal of Judgment and Decision Making:"),
+                             HTML("<p>Shiny FFTrees is a <a href='http://shiny.rstudio.com'>Shiny</a> application that allows you to create fast-and-frugal decision trees (FFTs) using the <a href = 'cran.r-project.org/web/packages/FFTrees/index.html'>FFTrees</a> R package in a web-browser.
+                               The app is a companion to the following article:</p>"),
                              HTML("<ul><li>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href =http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF</a></li></ul>"),
                           
                              h3("How to use this site"),
-                             p("You can create FFTs by navigate this site using the tabs on the top of the page in order:"),
-                             HTML("<ul class='fa-ul'><li><i class='fa-li fa fa-table'></i> Data: Select a Data set (or upload your own dataset)</li><li><i class='fa-li fa fa-cogs'></i> Create: Create fast-and-frugal trees, either with a built-in algorithm, or by hand.</li><li><i class='fa-li fa fa-tree'></i> Visualize: Visualize FFTs along with accuracy statistics</li></ul>"),
+                             p("You should navigate this site using the header tabs in order:"),
+                             HTML("<ul class='fa-ul'><li><i class='fa-li fa fa-table'></i> Data: Select a dataset and binary criterion</li><li><i class='fa-li fa fa-cogs'></i> Create: Create FFTs, either with a built-in algorithm, or by hand.</li><li><i class='fa-li fa fa-tree'></i> Visualize: Plot FFTs along with accuracy statistics</li></ul>"),
                              # h3("Read the paper!"),
                              # HTML("<a href='http://journal.sjdm.org/17/17217/jdm17217.pdf'><img border='0' alt='Journal of Judgment and Decision Making' src='FFTManuscriptSS.png' width='400' ></a>"),
                              # br(),
@@ -28,12 +28,13 @@ navbarPage("Shiny FFTrees",
                              ),
                        column(5,
                               br(),
+                              h4("What is an FFT?"),
+                              p("A fast-and-frugal tree (FFT) is an extremely simple decision tree with exactly two branches under each node, where one (or both) branches is an exit branch (Martignon et al., 2008)"),
+                              
                               br(),
                       verbatimTextOutput("FFT_loading"),
                       br(),
                       br(),
-                      h4("What is an FFT?"),
-                      p("A fast-and-frugal tree (FFT) is an extremely simple decision tree with exactly two branches under each node, where one (or both) branches is an exit branch (Martignon et al., 2008)"),
                       br(),
                       br(),
                       
@@ -43,10 +44,47 @@ navbarPage("Shiny FFTrees",
                     ))
            )),
            
-          
+           
 # -------------
-# Data Tab
+# Introduction Tab
 # --------------
+
+tabPanel(HTML("Intro - <i class='fa fa-info fa-2x'></i>"),
+        fluidPage(
+          fluidRow(
+            column(7,
+                   h3("What is a decision tree?"),
+                   p("A decision tree is a set of ordered, conditional rules in the
+                     form 'If A, then B' that are applied sequentially until a decision is reached. 
+                     Formally, a decision tree is comprised of a sequence of nodes, representing questions, branches, representing answers to questions, and leaves, representing decisions."),
+                   h3("What are fast-and-frugal trees (FFTs)?"),
+                   p("A fast-and-frugal tree (FFT) is an extremely simple decision tree with exactly two branches under each node, 
+                     where one (or both) branches is an exit branch (Martignon et al., 2008). In other words, in an FFT one answer (or in the 
+                     case of the final node, both answers) to every question posed by a node will trigger an immediate decision. Because 
+                     FFTs have an exit branch on every node, they typically make decisions faster than standard decision trees.")
+                   
+                   
+                   ),
+            column(5,
+                   br(),
+                   h4("What is an FFT?"),
+                   
+                   br(),
+                   br(),
+                   br(),
+                   br(),
+                   br(),
+                   
+                   
+                   h4("Fun Fact!"),
+                   p("As I can't sleep on planes, the majority of this site was written during a 24h trip from Basel Switzerland to Philadelphia. Lack of sleep should also explain the inevitable bugs...")
+            ))
+        )
+),
+           
+           # -------------
+           # Data Tab
+           # --------------
            
            tabPanel(HTML("Data - <i class='fa fa-table fa-2x'></i>"),
                     sidebarPanel(
@@ -62,29 +100,35 @@ navbarPage("Shiny FFTrees",
                       # ),
                       # h4("Upload data"),
                       
+                      
+                      uiOutput("criterion"),
                       fileInput('file1', 'Upload a .csv file',
                                 accept=c('text/csv',
                                          'text/comma-separated-values,text/plain',
                                          '.csv')),
-                      uiOutput("criterion"),
                       
                       p("When you are ready to create FFTs, click the Create tab")
                     ),
                     mainPanel(
-      
+                      
                       uiOutput('tbl')
                       # DT::dataTableOutput('tbl')
                     )
-           ),
+           ),           
+           
+           
+
+
+
            tabPanel(HTML("Create - <i class='fa fa-cogs fa-2x'></i>"),
                     sidebarPanel(width = 4,
                       uiOutput("dataandcriterion"),
                       # h4("Click Create! when ready"),
-                      div(
-                        actionButton("goButton", "Create FFTs!"),
-                      checkboxInput("showinstructions", label = "Show Definitions"),
-                      style="float:left"),
-                      br(),
+                   
+                        actionButton("goButton", "Go! Create FFTs!"),
+                      hr(),
+                      checkboxInput("showinstructions", label = "Show Guide"),
+                      
                       sliderInput("train.p", "Training Split Percentage", min = .1, max = 1, step = .1, value = .5),
                       
                       selectInput("algorithm", "Construction Algorithm",
@@ -118,10 +162,12 @@ navbarPage("Shiny FFTrees",
             
                       h4("Create your own tree"),
                       p("You can define your own tree manually below (it's best to start by copying an existing FFT 'in words')"),
-                      textAreaInput("mytree", "", "", width = "100%", height = "200px",
-                                    placeholder = "If age > 40, predict TRUE. If eyecolor = {blue,orange}, predict FALSE.")
-                      
-                    ),
+                    #   textAreaInput("mytree", "", "", width = "100%", height = "200px",
+                    #                 placeholder = "If age > 40, predict TRUE. If eyecolor = {blue,orange}, predict FALSE.")
+                    #   
+                    # )
+                    uiOutput("createown")),
+                    
                     mainPanel(
                       htmlOutput("createProgress"),
                       uiOutput("summaryHeader"),
@@ -224,7 +270,7 @@ tabPanel(HTML("References - <i class='fa fa-book fa-2x'></i>"),
            fluidRow(
              column(7,
                     h4("FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees."),
-                    HTML("<ul><li><p>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF Link</a></p></li></ul>"),
+                    HTML("<ul><li><p>Phillips, N, D., Neth, Hansjörg, Woike, J. K., & Gaissmaier, W. (2017). FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. Judgment and Decision Making, 12(4), 344-368. <a href = http://journal.sjdm.org/17/17217/jdm17217.pdf>PDF Link</a></p></li></ul>"),
                     h4("Additional FFT References"),
                     HTML("<ul>
                 <li>Dhami, M. K. (2003). Psychological models of professional decision making. Psychological Science, 14(2), 175–180.</li>

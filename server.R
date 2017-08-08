@@ -63,13 +63,13 @@ shinyServer(function(input, output, session) {
     if(is.null(uploaddata())) {
       
       return(selectInput("dataset", 
-                         "Choose A Dataset", 
+                         HTML("<i class='fa fa-table'></i> Choose a dataset"), 
                          as.list(c("heartdisease", "breastcancer", "titanic", "mushrooms"))))
       
     } else {
       
       return(selectInput("dataset", 
-                         "Choose A Dataset", 
+                         HTML("<i class='fa fa-table'></i> Choose a dataset"), 
                          as.list(c("heartdisease", "breastcancer", "titanic", "mushrooms", input$file1$name))))
       
     }
@@ -95,7 +95,7 @@ shinyServer(function(input, output, session) {
       possible.cues <- possible.cues[order(ord, decreasing = TRUE)]
       
       selectInput("criterion", 
-                  "Which binary variable is the criterion?", 
+                  HTML("<i class='fa fa-dot-circle-o'></i> Choose a (binary) criterion"), 
                   as.list(possible.cues))
     }
   })
@@ -147,8 +147,8 @@ shinyServer(function(input, output, session) {
       return(
         
         list(
-          h4(paste("Data:", input$dataset)),
-          h4(paste("Criterion:", input$criterion)),
+          HTML(paste0("<i class='fa fa-table fa-2x'></i> <h4 style='display: inline'> = ", input$dataset, "</h4><br>")),
+          HTML(paste0("<i class='fa fa-dot-circle-o fa-2x'></i> <h4 style='display: inline'> = ", input$criterion, "</h4>")),
           hr()
         
         )
@@ -164,10 +164,11 @@ shinyServer(function(input, output, session) {
     
     return(
       
-      list(
-        h4(paste("Data:", input$dataset)),
-        h4(paste("Criterion:", input$criterion)),
-        hr()
+ 
+        list(
+          HTML(paste0("<i class='fa fa-table fa-2x'></i> <h4 style='display: inline'> = ", input$dataset, "</h4><br>")),
+          HTML(paste0("<i class='fa fa-dot-circle-o fa-2x'></i> <h4 style='display: inline'> = ", input$criterion, "</h4>")),
+          hr()
         
       )
     )
@@ -180,11 +181,11 @@ shinyServer(function(input, output, session) {
     if((is.null(input$dataset) | is.null(input$criterion)) == FALSE) {
       
     return(
-      
-      list(
-        h4(paste("Data:", input$dataset)),
-        h4(paste("Criterion:", input$criterion)),
-        hr()
+ 
+        list(
+          HTML(paste0("<i class='fa fa-table fa-2x'></i> <h4 style='display: inline'> = ", input$dataset, "</h4><br>")),
+          HTML(paste0("<i class='fa fa-dot-circle-o fa-2x'></i> <h4 style='display: inline'> = ", input$criterion, "</h4>")),
+          hr()
         
       )
     )
@@ -203,6 +204,12 @@ shinyServer(function(input, output, session) {
   {
     
   
+  # fft.inwords.ex <- eventReactive(input$goButton, {
+  # 
+  #   inwords(fft.object()$v2)
+  #   
+  # })  
+    
   # Create FFTrees object
   fft.object <- eventReactive(input$goButton, {
     
@@ -330,7 +337,9 @@ data.frame("Parameter" = c("Training Split Percentage",
            h4("Create an FFT"),
           p("Select an FFT construction algorithm and parameters and click 'Create FFTs!' to create trees"),
           # p("When you are ready, click Create! to create FFTs"),
-          h4("Parameter definitions"),
+          
+          hr(),
+          h4("Guide"),
           tableOutput('definition.tbl')
 
 
@@ -466,7 +475,7 @@ data.frame("Parameter" = c("Training Split Percentage",
 
 # Step 0: Install the FFTrees package
 
-install.packages('FFTrees')  # Only if FFTrees is not yet installed from CRAN
+install.packages('FFTrees')  # Only if FFTrees is not yet installed
 
 
 # Step 1: Load the package
@@ -506,7 +515,7 @@ summary(", input$dataset, ".fft)  # Show summary statistics
 
 # Step 4: Visualize
 
-plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
+plot(", input$dataset, ".fft)  # Plot FFT
 
 #
 #    O      
@@ -530,6 +539,29 @@ plot(", input$dataset, ".fft)  # Plot the FFT with the best training performance
       
   })
 
+  
+  output$createown <- renderUI({
+    
+    
+
+      
+     if(input$goButton > 0) {
+       
+       my.placeholder <- inwords(fft.object())$v2} else {
+       
+       my.placeholder <- "If age > 40, predict TRUE. If eyecolor = {blue,orange}, predict FALSE."
+     }
+      
+    return(
+        textAreaInput("mytree", "", "", width = "100%", height = "200px",
+                      placeholder = my.placeholder)
+
+      
+    )
+    
+    
+  })
+  
   
 }
 
